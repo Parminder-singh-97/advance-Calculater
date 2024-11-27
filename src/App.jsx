@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { evaluate } from "mathjs";
+import clickSound from './assets/click.mp3';
+import errorSound from './assets/error.mp3' // Import the audio file
 
 const App = () => {
   const [input, setInput] = useState("");
-  console.log(input);
+  const click = new Audio(clickSound); // Create a new Audio instance
+  const error = new Audio(errorSound); // Create a new Audio instance
+
   const buttons = [
     ["C", "", "", "BS"],
     [1, 2, 3, "+"],
@@ -12,20 +16,40 @@ const App = () => {
     [0, ".", "=", "/"],
   ];
 
+  const playClickSound = () => {
+    click.currentTime = 0; // Reset the sound to start from the beginning
+    click.play();
+  };
+  const playErrorSound = () => {
+    error.currentTime = 0; // Reset the sound to start from the beginning
+    error.play();
+  };
+
   function handleClickButton(value) {
     setInput(input + value);
+    playClickSound(); // Play sound on button press
   }
+
   function handleBackspace() {
-    let newInput = input.slice(0, -1);
-    setInput(newInput);
+    setInput(input.slice(0, -1));
+    playClickSound(); // Play sound on button press
   }
+
   function handleClearAll() {
     setInput("");
+    playClickSound(); // Play sound on button press
   }
+  
   function handleEqual() {
-    let result = evaluate(input).toString();
-    console.log(result);
-    setInput(result);
+    try {
+      const result = evaluate(input).toString();
+      setInput(result);
+      playClickSound(); // Play sound on button press
+    } catch {
+      playErrorSound()
+      setInput("Error");
+      alert("Error: " + "Please Do good Work! where is your Eye! 😂😂👌");
+    }
   }
 
   return (
@@ -63,6 +87,7 @@ const App = () => {
                   } else {
                     handleClickButton(button);
                   }
+                  
                 }}
                 key={colIndex}
                 className="w-16 h-16 bg-orange-500 text-white text-2xl font-bold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"

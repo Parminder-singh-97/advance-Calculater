@@ -48,7 +48,7 @@ const App = () => {
     } catch {
       playErrorSound()
       setInput("Error");
-      alert("Error: " + "Please Do good Work! where is your Eye! 😂😂👌");
+      alert("Error: " + "Hmmm Bhuttt Teej Ho rahee HO "! 😂😂👌");
     }
   }
 

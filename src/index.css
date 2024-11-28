@@ -5,16 +5,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*{
 
+  backgrond-color:grey;
+}
 h1{
-  
   
         font-family: "Bungee Spice", sans-serif;
         font-weight: 400;
         font-style: normal;
-      
-      
-      
+     
 }
 div{
     font-family: "Poppins", sans-serif;
